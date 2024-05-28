@@ -109,8 +109,9 @@ apagarDados: async(req, res) => {
 
     await usuariosService.apagarDados(req.params.id);
 
-    res.json(json);
 
+    res.json(json);
+    
 }
 
 
