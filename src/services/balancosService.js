@@ -55,13 +55,8 @@ module.exports = {
     buscarBalancoAtiv: (id_usuario, num_balanco) => {
         return new Promise((resolve, reject) => {
             
-            const sql = `
-            SELECT * FROM balancos
-            WHERE id_usuario = ? AND num_balanco = ?
-            `;
-             
-            db.query(sql, [id_usuario, num_balanco], 
-                (error, results) => {
+            const sql = `SELECT * FROM balancos WHERE id_usuario = ? AND num_balanco = ?`;
+            db.query(sql, [id_usuario, num_balanco], (error, results) => {
                 if (error) {
                     reject(error);
                     return;

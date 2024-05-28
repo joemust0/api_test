@@ -63,12 +63,12 @@ module.exports = {
     
         try {
             let id_usuario = req.params.id_usuario;
-            let num_atividade = req.params.num_atividade;
+            let num_balanco = req.params.num_balanco;
     
             // Adicionar log para depuração
-            console.log(`Buscando balanço para id_usuario: ${id_usuario} e num_atividade: ${num_atividade}`);
+            console.log(`Buscando balanço para id_usuario: ${id_usuario} e num_balanco: ${num_balanco}`);
     
-            let balanco = await balancosService.buscarBalancoAtiv(id_usuario, num_atividade); // Passar os parâmetros corretamente
+            let balanco = await balancosService.buscarBalancoAtiv(id_usuario, num_balanco); // Passar os parâmetros corretamente
             if (balanco && balanco.length > 0) {
                 json.result = balanco; // Corrigido para retornar os resultados
             } else {
