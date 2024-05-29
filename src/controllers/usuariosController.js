@@ -23,16 +23,31 @@ module.exports = {
 },
     //Busca individual de usuario
     buscarUsuario: async (req, res) => {
-        let json = {error: '', result:{}};
-
-        let cadastro = req.params.id;
-        let usuario = await usuariosService.buscarUsuario(cadastro);
-
-        if(usuario){
-            json.result = usuario;
+        let json = { error: '', result: {} };
+    
+        let id = req.params.id;
+        try {
+            let usuario = await usuariosService.buscarUsuario(id);
+    
+            if (usuario) {
+                json.result = {
+                    cadastro: usuario.id,
+                    nome_completo: usuario.nome_completo,
+                    nickname: usuario.nickname,
+                    email: usuario.email,
+                    senha: usuario.senha,
+                    instituicao: usuario.instituicao,
+                    responsavel: usuario.responsavel
+                };
+            } else {
+                json.error = 'Usuário não encontrado';
+            }
+        } catch (error) {
+            json.error = 'Erro ao buscar usuário';
         }
         res.json(json);
     },
+    
     
     // cadastro de usuarios
     criarUsuario: async (req, res) => {

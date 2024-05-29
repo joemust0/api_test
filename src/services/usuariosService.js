@@ -18,20 +18,22 @@ module.exports = {
         });
     },
 
-   buscarUsuario: (cadastro) =>{
-        return new Promise((aceito, rejeitado) => {
-
-            db.query('SELECT * FROM usuarios WHERE id = ?',[cadastro], (error, results) =>{
-               if(error) {rejeitado(error); return; }
-               if(results.length > 0){
-               aceito(results[0]);
-            }else{
-                aceito(false);
-            }
+    buscarUsuario: (id) => {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT * FROM usuarios WHERE id = ?', [id], (error, results) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                if (results.length > 0) {
+                    resolve(results[0]);
+                } else {
+                    resolve(false);
+                }
             });
-
         });
     },
+    
 
     criarUsuario: (nome_completo, nickname, email, senha, instituicao, responsavel) =>{
         return new Promise((aceito, rejeitado) => {
