@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/06/2024 às 06:40
+-- Tempo de geração: 20/06/2024 às 21:04
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -28,20 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `balancos` (
-  `num_balanco` int(11) NOT NULL AUTO_INCREMENT,
+  `num_balanco` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `nome_balanco` varchar(255) NOT NULL,
   `descricao_balanco` text DEFAULT NULL,
-  `data_criacao` date NOT NULL,
-  `data_modificacao` date NOT NULL
+  `data_criacao` timestamp NOT NULL DEFAULT current_timestamp(),
+  `data_modificacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `balancos`
---
-
-INSERT INTO `balancos` (`num_balanco`, `id_usuario`, `nome_balanco`, `descricao_balanco`, `data_criacao`, `data_modificacao`) VALUES
-(1, 2, 'Balanço Exemplo 2', 'balanço exemplo 6', '2024-05-19', '2024-05-27');
 
 -- --------------------------------------------------------
 
@@ -50,11 +43,11 @@ INSERT INTO `balancos` (`num_balanco`, `id_usuario`, `nome_balanco`, `descricao_
 --
 
 CREATE TABLE `lancamentos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `num_balanco` int(11) NOT NULL,
-  `num_nf` int(11) NOT NULL,
-  `serie_nf` int(3) NOT NULL,
-  `chave_nf` bigint(44) NOT NULL,
+  `num_nf` varchar(9) DEFAULT NULL,
+  `serie_nf` varchar(3) DEFAULT NULL,
+  `chave_nf` varchar(44) DEFAULT NULL,
   `data_criacao` date NOT NULL,
   `data_entrada` date NOT NULL,
   `c_debito` varchar(255) DEFAULT NULL,
@@ -72,7 +65,7 @@ CREATE TABLE `lancamentos` (
 --
 
 CREATE TABLE `planodecontas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `tipo` varchar(50) DEFAULT NULL,
   `periodo_c` varchar(50) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
@@ -193,7 +186,7 @@ INSERT INTO `planodecontas` (`id`, `tipo`, `periodo_c`, `modelo`, `conta`, `cont
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -201,13 +194,6 @@ CREATE TABLE `usuarios` (
   `instituicao` varchar(255) DEFAULT NULL,
   `responsavel` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nome`, `nickname`, `email`, `senha`, `instituicao`, `responsavel`) VALUES
-(2, 'ADM', 'ADM', 'ADM@gmail.com', 'ADM123', 'ADM', 'Test');
 
 --
 -- Índices para tabelas despejadas
@@ -253,13 +239,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `balancos`
 --
 ALTER TABLE `balancos`
-  MODIFY `num_balanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `num_balanco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `lancamentos`
 --
 ALTER TABLE `lancamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de tabela `planodecontas`
@@ -271,7 +257,7 @@ ALTER TABLE `planodecontas`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas
